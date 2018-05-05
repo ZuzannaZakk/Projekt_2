@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1525533630 source:c:\users\zuza\desktop\projekt_2\main.cpp
+	"graph.h"
+	"city.h"
+	"testing.h"
+	<iostream>
+	<fstream>
+
+1525532474 c:\users\zuza\desktop\projekt_2\graph.h
+	<vector>
+	<map>
+	<iostream>
+	<set>
+	<list>
+	<exception>
+	<queue>
+	<sstream>
+
+1525527925 source:c:\users\zuza\desktop\projekt_2\city.cpp
+	"city.h"
+
+1525527925 c:\users\zuza\desktop\projekt_2\city.h
+	<string>
+	"vector.h"
+
+1525301645 c:\users\zuza\desktop\projekt_2\vector.h
+	<cmath>
+
+1525530947 c:\users\zuza\desktop\projekt_2\testing.h
+
+1525530336 c:\users\zuza\desktop\projekt_2\test.h
+	<string>
+	<istream>
+	"graph.h"
+	"testing.h"
+	"city.h"
+	"vector.h"
+
+1525530336 source:c:\users\zuza\desktop\projekt_2\test.cpp
+

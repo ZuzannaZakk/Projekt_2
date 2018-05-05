@@ -32,8 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="city.cpp" />
+		<Unit filename="city.h" />
 		<Unit filename="graph.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="testing.h" />
+		<Unit filename="vector.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

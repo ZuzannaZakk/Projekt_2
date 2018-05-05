@@ -6,6 +6,8 @@
 #include <set>
 #include <list>
 #include <exception>
+#include <queue>
+#include <sstream>
 using namespace std;
 template<typename TData, typename TDist = double, typename TIndex = TData>
 class Graph
@@ -16,7 +18,20 @@ private:
         TIndex destination;
         TDist weight;
         Edge(const TIndex &destination, const TDist &weight)
-                : destination(destination), weight(weight) {}
+                : destination(destination), weight(weight){}
+        bool operator<(const Edge &b) const
+        {
+            if(destination < b.destination)
+            {
+                return true;
+            } else if(b.destination < destination)
+                {
+                    return false;
+                } else
+                    {
+                    return weight < b.weight;
+                    }
+        }
     };
     struct Vertex
     {
@@ -25,7 +40,17 @@ private:
         multiset<Edge> adj;    //wychodzace "sasiedztwo"
         multiset<Edge> revAdj; //wchodzace "sasiedztwo"
         Vertex(const TData &data, const TIndex &id)
-                : data(data), id(id) {}
+                : data(data), id(id){}
+        string toString() const
+        {
+            ostringstream oss;
+            oss << id << "\n";
+            for(const auto &e : adj)
+            {
+                oss << id << " -> " << e.destination << "\n";
+            }
+            return oss.str();
+        }
     };
     map<TIndex, Vertex> vertices;
     bool existsVertices(const TIndex &a, const TIndex &b) const
@@ -61,7 +86,7 @@ public:
     {
         addVertex(data, data);
     }
-    void deleteVertex(const TIndex &id)
+    /*void deleteVertex(const TIndex &id)
     {
         if(!existsVertex(id))
         {
@@ -79,7 +104,7 @@ public:
                 }
                 vertices.erase(id);
             }
-    }
+    }*/
     bool existsEdge(const TIndex &from, const TIndex &to, const TDist &weight)
     {
         return (vertices.find(from) != vertices.end() && vertices.find(to) != vertices.end() && vertices.find(from)->second.adj.find(Edge(to, weight))!= vertices.find(from)->second.adj.end());
@@ -96,7 +121,7 @@ public:
                     vertices.find(to)->second.revAdj.insert(Edge(from, weight));
                 }
     }
-    void deleteEdge(const TIndex &from, const TIndex &to, const TDist &weight)
+    /*void deleteEdge(const TIndex &from, const TIndex &to, const TDist &weight)
     {
         if (!existsVertices(from, to))
         {
@@ -109,7 +134,7 @@ public:
                 vertices.find(from)->second.adj.erase(Edge(to, weight));
                 vertices.find(to)->second.revAdj.erase(Edge(from, weight));
                 }
-    }
+    }*/
     TData getData(const TIndex &id) const
     {
         if(!existsVertex(id))
@@ -136,6 +161,98 @@ public:
                     return result;
                 }
     }
+    string toString() const
+    {
+        ostringstream oss;
+        oss << "graph {\n";
+        for (const auto &v : vertices)
+        {
+            oss << v.second.toString();
+        }
+        oss << "}\n";
+        return oss.str();
+    }
 };
 
+template<typename TData, typename TDist = double, typename TIndex = TData>
+pair<list<TIndex>, TDist> AStar(const Graph<TData, TDist, TIndex> &graph, const TIndex &start, const TIndex &destination, TDist (*heur)(const Graph<TData, TDist, TIndex>&, const TIndex&, const TIndex&))
+{
+    typedef pair<TDist, TIndex> qData;
+    priority_queue<qData, vector<qData>, greater<qData>> queue;
+    map<TIndex, TDist> g; //droga od wierzcholka start
+    map<TIndex, TDist> f; //przewidywany dystans od stratu do celu
+    map<TIndex, bool> proced; //czy odwiedzony
+    map<TIndex, TIndex> predecessor; //poprzednicy
+    predecessor[start] = start;
+    g[start] = 0;
+    f[start] = 0 + heur(graph, start, destination);
+    queue.push(make_pair((TDist)f[start], start));
+    bool reachedDestination = false;
+    while (!queue.empty() && !reachedDestination)
+    {
+        qData proc = queue.top();
+        queue.pop();
+        TIndex pId = proc.second;
+        if(pId != destination)
+        {
+            if(proced.find(pId) == proced.end())
+            {
+                list<pair<TIndex, TDist>> adj = graph.getAdjacencyList(pId);
+                for(const auto &a : adj)
+                {
+                    TIndex aId = a.first;
+                    TDist edgeWeight = a.second;
+                    if(g.find(aId) == g.end() || g[aId] > g[pId] + edgeWeight)
+                    {
+                        g[aId] = g[pId] + edgeWeight;
+                        predecessor[aId] = pId;
+                        f[aId] = g[aId] + heur(graph, aId, destination);
+                        queue.push(make_pair(f[aId], aId));
+                    }
+                }
+                proced[pId] = true;
+            }
+
+        } else
+            {
+                reachedDestination = true;
+            }
+    }
+    if (g.find(destination) == g.end())
+    {
+        cout << "Brak drogi." << endl;
+        return make_pair(list<TIndex>(), (TDist) -1);
+    } else //odtworz sciezke
+        {
+            pair<list<TIndex>, TDist> result = make_pair(list<TIndex>(), g[destination]);
+            TIndex pos = destination;
+            result.first.push_front(destination);
+            pos = predecessor[pos];
+            while(pos != start)
+            {
+                result.first.push_front(pos);
+                pos = predecessor[pos];
+            }
+            if (destination != start)
+            {
+                result.first.push_front(start);
+            }
+            return result;
+        }
+}
+template<typename TData, typename TDist = double, typename TIndex = TData>
+TDist dijkstraHeur(const Graph<TData, TDist, TIndex> &graph, const TIndex &start, const TIndex &destination)
+{
+    return (TDist) 0;
+}
+template<typename TData, typename TDist = double, typename TIndex = TData>
+TDist euclidHeur(const Graph<TData, TDist, TIndex> &graph, const TIndex &start, const TIndex &destination)
+{
+    return (graph.getData(start).getPosition() - graph.getData(destination).getPosition()).length();
+}
+template<typename TData, typename TDist = double, typename TIndex = TData>
+pair<list<TIndex>, TDist> dijkstra(const Graph<TData, TDist, TIndex> &graph, const TIndex &start, const TIndex &destination)
+{
+    return AStar(graph, start, destination, dijkstraHeur);
+}
 #endif

@@ -1,0 +1,121 @@
+10 50
+Anchorage -4312 2061
+
+Anaheim 5100 -8845
+
+Amarillo -8215 -7643
+
+Allentown 84 -2598
+
+Alexandria -3285 -2553
+
+Albuquerque -876 2312
+
+Albany 7540 -2332
+
+Akron -3271 3740
+
+Abilene -6388 -6908
+
+Aberdeen -7584 -194
+
+Allentown Anchorage
+
+Allentown Anaheim
+
+Anchorage Anchorage
+
+Abilene Albany
+
+Amarillo Abilene
+
+Amarillo Akron
+
+Anaheim Alexandria
+
+Alexandria Allentown
+
+Aberdeen Akron
+
+Abilene Anchorage
+
+Albany Akron
+
+Anchorage Akron
+
+Anchorage Albany
+
+Anchorage Anchorage
+
+Amarillo Alexandria
+
+Aberdeen Allentown
+
+Amarillo Anaheim
+
+Albuquerque Allentown
+
+Anaheim Amarillo
+
+Akron Amarillo
+
+Anaheim Abilene
+
+Aberdeen Anaheim
+
+Amarillo Amarillo
+
+Allentown Anchorage
+
+Anchorage Anaheim
+
+Anaheim Alexandria
+
+Akron Amarillo
+
+Amarillo Abilene
+
+Abilene Allentown
+
+Akron Aberdeen
+
+Albany Akron
+
+Anaheim Aberdeen
+
+Albany Akron
+
+Amarillo Abilene
+
+Abilene Anchorage
+
+Anaheim Akron
+
+Aberdeen Aberdeen
+
+Aberdeen Anchorage
+
+Anaheim Amarillo
+
+Anchorage Amarillo
+
+Amarillo Amarillo
+
+Akron Abilene
+
+Amarillo Abilene
+
+Albuquerque Aberdeen
+
+Amarillo Allentown
+
+Aberdeen Abilene
+
+Aberdeen Anchorage
+
+Abilene Albany
+
+Albany Aberdeen
+
+Albuquerque Alexandria
+
