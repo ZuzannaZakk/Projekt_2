@@ -21,16 +21,7 @@ private:
                 : destination(destination), weight(weight){}
         bool operator<(const Edge &b) const
         {
-            if(destination < b.destination)
-            {
-                return true;
-            } else if(b.destination < destination)
-                {
-                    return false;
-                } else
-                    {
-                    return weight < b.weight;
-                    }
+            return weight < b.weight;
         }
     };
     struct Vertex
@@ -38,7 +29,7 @@ private:
         TData data;
         TIndex id;
         multiset<Edge> adj;    //wychodzace "sasiedztwo"
-        multiset<Edge> revAdj; //wchodzace "sasiedztwo"
+        //multiset<Edge> revAdj; //wchodzace "sasiedztwo"
         Vertex(const TData &data, const TIndex &id)
                 : data(data), id(id){}
         string toString() const
@@ -47,7 +38,7 @@ private:
             oss << id << "\n";
             for(const auto &e : adj)
             {
-                oss << id << " -> " << e.destination << "\n";
+                oss << "\"" << id << "\"" << " -> " << "\"" << e.destination << "\"" << "\n";
             }
             return oss.str();
         }
@@ -62,7 +53,7 @@ public:
     {
         return vertices.find(id) != vertices.end();
     }
-    list<TIndex> getVertices() const //lista z "zawartoscia" wierzcholkow
+    list<TIndex> getVertices() const
     {
         list<TIndex> res;
         for (const auto &v : vertices)
@@ -118,7 +109,7 @@ public:
                 else
                 {
                     vertices.find(from)->second.adj.insert(Edge(to, weight));
-                    vertices.find(to)->second.revAdj.insert(Edge(from, weight));
+                    //vertices.find(to)->second.revAdj.insert(Edge(from, weight));
                 }
     }
     /*void deleteEdge(const TIndex &from, const TIndex &to, const TDist &weight)
@@ -180,7 +171,7 @@ pair<list<TIndex>, TDist> AStar(const Graph<TData, TDist, TIndex> &graph, const 
     typedef pair<TDist, TIndex> qData;
     priority_queue<qData, vector<qData>, greater<qData>> queue;
     map<TIndex, TDist> g; //droga od wierzcholka start
-    map<TIndex, TDist> f; //przewidywany dystans od stratu do celu
+    map<TIndex, TDist> f; //przewidywany dystans do celu
     map<TIndex, bool> proced; //czy odwiedzony
     map<TIndex, TIndex> predecessor; //poprzednicy
     predecessor[start] = start;
@@ -198,13 +189,16 @@ pair<list<TIndex>, TDist> AStar(const Graph<TData, TDist, TIndex> &graph, const 
             if(proced.find(pId) == proced.end())
             {
                 list<pair<TIndex, TDist>> adj = graph.getAdjacencyList(pId);
+
                 for(const auto &a : adj)
                 {
                     TIndex aId = a.first;
                     TDist edgeWeight = a.second;
                     if(g.find(aId) == g.end() || g[aId] > g[pId] + edgeWeight)
                     {
+
                         g[aId] = g[pId] + edgeWeight;
+
                         predecessor[aId] = pId;
                         f[aId] = g[aId] + heur(graph, aId, destination);
                         queue.push(make_pair(f[aId], aId));
@@ -212,7 +206,6 @@ pair<list<TIndex>, TDist> AStar(const Graph<TData, TDist, TIndex> &graph, const 
                 }
                 proced[pId] = true;
             }
-
         } else
             {
                 reachedDestination = true;

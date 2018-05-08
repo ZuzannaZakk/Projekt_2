@@ -1,12 +1,12 @@
 # depslib dependency file v1.0
-1525533630 source:c:\users\zuza\desktop\projekt_2\main.cpp
+1525809333 source:c:\users\zuza\desktop\projekt_2\main.cpp
 	"graph.h"
 	"city.h"
 	"testing.h"
 	<iostream>
 	<fstream>
 
-1525532474 c:\users\zuza\desktop\projekt_2\graph.h
+1525822367 c:\users\zuza\desktop\projekt_2\graph.h
 	<vector>
 	<map>
 	<iostream>
@@ -26,15 +26,21 @@
 1525301645 c:\users\zuza\desktop\projekt_2\vector.h
 	<cmath>
 
-1525530947 c:\users\zuza\desktop\projekt_2\testing.h
-
-1525530336 c:\users\zuza\desktop\projekt_2\test.h
+1525804925 c:\users\zuza\desktop\projekt_2\testing.h
+	<fstream>
 	<string>
-	<istream>
 	"graph.h"
-	"testing.h"
 	"city.h"
-	"vector.h"
 
-1525530336 source:c:\users\zuza\desktop\projekt_2\test.cpp
+1525722359 c:\users\zuza\desktop\projekt_2\test.h
+	"graph.h"
+	"city.h"
+	<iostream>
+	<fstream>
+
+1525722095 source:c:\users\zuza\desktop\projekt_2\test.cpp
+	"test.h"
+
+1525812486 source:c:\users\zuza\desktop\projekt_2\testing.cpp
+	"testing.h"
 

@@ -36,6 +36,7 @@
 		<Unit filename="city.h" />
 		<Unit filename="graph.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="testing.cpp" />
 		<Unit filename="testing.h" />
 		<Unit filename="vector.h" />
 		<Extensions>

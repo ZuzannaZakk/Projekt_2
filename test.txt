@@ -1,23 +1,23 @@
-10 50
+10 47  
 Anchorage -4312 2061
 
-Anaheim 5100 -8845
+Anaheim 5 -8
 
 Amarillo -8215 -7643
 
-Allentown 84 -2598
+Allentown 8 -2598
 
 Alexandria -3285 -2553
 
-Albuquerque -876 2312
+Albuquerque -8 2
 
 Albany 7540 -2332
 
-Akron -3271 3740
+Akron 3271 3740
 
 Abilene -6388 -6908
 
-Aberdeen -7584 -194
+Aberdeen -784 -194
 
 Allentown Anchorage
 
@@ -40,8 +40,6 @@ Aberdeen Akron
 Abilene Anchorage
 
 Albany Akron
-
-Anchorage Akron
 
 Anchorage Albany
 
@@ -88,9 +86,6 @@ Albany Akron
 Amarillo Abilene
 
 Abilene Anchorage
-
-Anaheim Akron
-
 Aberdeen Aberdeen
 
 Aberdeen Anchorage
@@ -104,8 +99,6 @@ Amarillo Amarillo
 Akron Abilene
 
 Amarillo Abilene
-
-Albuquerque Aberdeen
 
 Amarillo Allentown
 
